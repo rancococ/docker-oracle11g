@@ -1,22 +1,18 @@
-=======================================================================
-Oracle Enterprise Edition 11g Release 2
-=======================================================================
-
-***********************************************************************
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>声明<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+#### 项目介绍
+基于Oracle Linux 7.5实现了Oracle Database 11gR2 企业版容器化运行
 本脚本仅用作研究如何把oracledatabase制作成镜像,请勿作商用,谢谢.
 有疑问请联系:rancococ@qq.com
-***********************************************************************
 
-前期准备:
+#### 前期准备
+从Oracle官方下载安装包到本地的http服务器某个目录,如下:
 http://192.168.8.100/oracle11g/p13390677_112040_Linux-x86-64_1of7.zip
 http://192.168.8.100/oracle11g/p13390677_112040_Linux-x86-64_2of7.zip
 
-基础镜像:
+从docker hub或国内docker加速站点上下载oralcelinux:7的docker镜像,并重新打标签为:
 192.168.8.251/library/oraclelinux:7
-即官方镜像:oraclelinux:7
 
-编译步骤:
+
+#### 安装教程
 1.build preinstall
 ./01preinstall/01build.sh
 
@@ -26,12 +22,13 @@ http://192.168.8.100/oracle11g/p13390677_112040_Linux-x86-64_2of7.zip
 3.build database
 ./03database/01build.sh
 
-数据库信息:
+#### 使用说明
+数据库信息
 sid:orcl
 port:1521
 system/oracle
 
-镜像用法:
+镜像用法
 docker run -it \
            --rm \
            --memory=2g \
@@ -42,7 +39,10 @@ docker run -it \
            192.168.8.251/library/oracle-11g-ee:database
 或采用docker-compose进行管理
 
-特别说明：
+#### 参与贡献
+1. rancococ@qq.com
+
+#### 特别说明
 >oraclelinux做为基础镜像,有了oracle-rdbms-server-11gR2-preinstall包能自动做一些预处理;
 >准备一个http服务,用wget从http服务器上下载安装包并解压;
 >oracle对共享内存有要求,在build或run的时候需要指定参数:--memory=2g --shm-size=2g;
