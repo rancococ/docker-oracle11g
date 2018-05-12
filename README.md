@@ -1,6 +1,8 @@
 #### 项目介绍
-基于Oracle Linux 7.5实现了Oracle Database 11gR2 企业版容器化运行
-本脚本仅用作研究如何把oracledatabase制作成镜像,请勿作商用,谢谢.
+基于Oracle Linux 7.5实现了Oracle Database 11gR2 企业版容器化运行;
+
+本脚本仅用作研究如何把oracle database制作成镜像,请勿作商用,谢谢.
+
 有疑问请联系:rancococ@qq.com
 
 #### 前期准备
@@ -13,14 +15,11 @@ http://192.168.8.100/oracle11g/p13390677_112040_Linux-x86-64_2of7.zip
 
 
 #### 安装教程
-1.build preinstall
-./01preinstall/01build.sh
+1.build preinstall:./01preinstall/01build.sh
 
-2.build installed
-./02installed/01build.sh
+2.build installed:./02installed/01build.sh
 
-3.build database
-./03database/01build.sh
+3.build database:./03database/01build.sh
 
 #### 使用说明
 数据库信息
