@@ -28,14 +28,8 @@ port:1521
 system/oracle
 
 镜像用法
-docker run -it \
-           --rm \
-           --memory=2g \
-           --shm-size=2g \
-           --name="oracle-11g-ee-database" \
-           --hostname="database" \
-           -p 1521:1521 \
-           192.168.8.251/library/oracle-11g-ee:database
+docker run -it --rm --memory=2g --shm-size=2g --name="oracle-11g-ee-database" --hostname="database" \
+           -p 1521:1521 192.168.8.251/library/oracle-11g-ee:database
 或采用docker-compose进行管理
 
 #### 参与贡献
