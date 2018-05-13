@@ -66,7 +66,7 @@ EOF
     init_user_info
     import_script
     if [ $ENABLE_EM == "true" ]; then
-        enable_em
+        enable_em;
     fi
     wait $MON_ALERT_PID
 }
@@ -167,9 +167,8 @@ enable_em() {
         exit 0
 EOF
     while read line; do echo -e "sqlplus: $line"; done
-    /u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -deconfig dbcontrol db -repos drop -silent -respfile /assets/resp/em_create.rsp
-    /u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -config dbcontrol db -repos create -silent -respfile /assets/resp/em_create.rsp
-
+    su oracle -c "/u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -deconfig dbcontrol db -repos drop -silent -respfile /assets/resp/em_create.rsp"
+    su oracle -c "/u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -config dbcontrol db -repos create -silent -respfile /assets/resp/em_create.rsp"
 }
 
 # Check shared memory
