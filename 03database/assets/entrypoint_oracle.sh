@@ -133,7 +133,6 @@ EOF
 init_user_info() {
     echo_green ""
     echo_green "Initialise user info"
-    #sqlplus / as sysdba @/assets/sql/init-user.sql "${USERNAME}" "${PASSWORD}" "orcl"
     sqlplus / as sysdba <<-EOF |
         @/assets/sql/init-user.sql "${USERNAME}" "${PASSWORD}" "orcl";
         commit;
