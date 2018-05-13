@@ -43,5 +43,6 @@ docker run -it \
            --name="oracle-11g-ee-database" \
            --hostname="database" \
            -p 1521:1521 \
+           -p 1158:1158 \
            192.168.8.251/library/oracle-11g-ee:database \
           "bash"

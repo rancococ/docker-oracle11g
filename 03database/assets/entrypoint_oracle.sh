@@ -65,6 +65,9 @@ EOF
     change_profile_default_limit
     init_user_info
     import_script
+    if [ $ENABLE_EM == "true" ]; then
+        enable_em
+    fi
     wait $MON_ALERT_PID
 }
 
@@ -151,6 +154,23 @@ import_script() {
     echo_green "Import finished"
 }
 
+# enable em
+enable_em() {
+    echo_green ""
+    echo_green "Enable Oracle Enterprise Manager..."
+    sqlplus / as sysdba <<-EOF |
+        alter user dbsnmp identified by "oracle";
+        alter user sysman identified by "oracle";
+        alter user dbsnmp account unlock;
+        alter user sysman account unlock;
+        commit;
+        exit 0
+EOF
+    while read line; do echo -e "sqlplus: $line"; done
+    /u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -deconfig dbcontrol db -repos drop -silent -respfile /assets/resp/em_create.rsp
+    /u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -config dbcontrol db -repos create -silent -respfile /assets/resp/em_create.rsp
+
+}
 
 # Check shared memory
 check_shm
