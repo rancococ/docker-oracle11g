@@ -133,7 +133,12 @@ EOF
 init_user_info() {
     echo_green ""
     echo_green "Initialise user info"
-    sqlplus / as sysdba @/assets/sql/init-user.sql "${USERNAME}" "${PASSWORD}" "orcl"
+    #sqlplus / as sysdba @/assets/sql/init-user.sql "${USERNAME}" "${PASSWORD}" "orcl"
+    sqlplus / as sysdba <<-EOF |
+        @/assets/sql/init-user.sql "${USERNAME}" "${PASSWORD}" "orcl";
+        commit;
+        exit 0
+EOF
     while read line; do echo -e "sqlplus: $line"; done
 }
 
@@ -167,8 +172,8 @@ enable_em() {
         exit 0
 EOF
     while read line; do echo -e "sqlplus: $line"; done
-    su oracle -c "/u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -deconfig dbcontrol db -repos drop -silent -respfile /assets/resp/em_create.rsp"
-    su oracle -c "/u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -config dbcontrol db -repos create -silent -respfile /assets/resp/em_create.rsp"
+    /u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -deconfig dbcontrol db -repos drop -silent -respfile /assets/resp/em_create.rsp
+    /u01/app/oracle/product/11.2.0/dbhome_1/bin/emca -config dbcontrol db -repos create -silent -respfile /assets/resp/em_create.rsp
 }
 
 # Check shared memory
