@@ -36,17 +36,13 @@ docker run -it --rm --memory=2g --shm-size=2g --name="oracle-11g-ee-database" --
 1. rancococ@qq.com
 
 #### 特别说明
->oraclelinux做为基础镜像,有了oracle-rdbms-server-11gR2-preinstall包能自动做一些预处理;
->准备一个http服务,用wget从http服务器上下载安装包并解压;
->oracle对共享内存有要求,在build或run的时候需要指定参数:--memory=2g --shm-size=2g;
->执行安装脚本需要注意权限,有的脚本是以root账号执行,有的是以oracle账号执行;
->脚本中注意单引号和双引号的区别;
->注意ins_emagent.mk引起的BUG,即:在makefile中添加链接libnnz11库的参数,
-修改/u01/app/oracle/product/11.2.0/dbhome_1/sysman/lib/ins_emagent.mk"
-将\$(MK_EMAGENT_NMECTL)修改为:\$(MK_EMAGENT_NMECTL)-lnnz11
->oracle数据库跟主机名强相关,build的时候随机生成了一个主机名,导致启动时会报错,
-所以在启动脚本entrypoint_oracle.sh中增加了两个方法,即:根据当前新的主机名修改tnsnames.ora和listener.ora
-再启动监听器和实例
->注意创建数据库实例的响应文件db_create.rsp611行相关参数:
+- oraclelinux做为基础镜像,有了oracle-rdbms-server-11gR2-preinstall包能自动做一些预处理;
+- 准备一个http服务,用wget从http服务器上下载安装包并解压;
+- oracle对共享内存有要求,在build或run的时候需要指定参数:--memory=2g --shm-size=2g;
+- 执行安装脚本需要注意权限,有的脚本是以root账号执行,有的是以oracle账号执行;
+- 脚本中注意单引号和双引号的区别;
+- 注意ins_emagent.mk引起的BUG,即:在makefile中添加链接libnnz11库的参数,修改/u01/app/oracle/product/11.2.0/dbhome_1/sysman/lib/ins_emagent.mk",将\$(MK_EMAGENT_NMECTL)修改为:\$(MK_EMAGENT_NMECTL)-lnnz11
+- oracle数据库跟主机名强相关,build的时候随机生成了一个主机名,导致启动时会报错,所以在启动脚本entrypoint_oracle.sh中增加了两个方法,即:根据当前新的主机名修改tnsnames.ora和listener.ora,再启动监听器和实例
+- 注意创建数据库实例的响应文件db_create.rsp611行相关参数:
 INITPARAMS="java_jit_enabled=false,memory_target=0,sga_target=1024,pga_aggregate_target=100,processes=1000,open_cursors=1000"
 特别是java_jit_enabled=false否则要出错
