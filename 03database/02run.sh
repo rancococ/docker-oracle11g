@@ -42,6 +42,7 @@ docker run -it \
            --shm-size=2g \
            --name="oracle-11g-ee-database" \
            --hostname="database" \
+           -e ENABLE_EM="true" \
            -p 1521:1521 \
            -p 1158:1158 \
            192.168.8.251/library/oracle-11g-ee:database \
