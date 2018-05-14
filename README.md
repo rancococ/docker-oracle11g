@@ -7,19 +7,17 @@
 
 #### 前期准备
 从Oracle官方下载安装包到本地的http服务器某个目录,如下:
-http://192.168.8.100/oracle11g/p13390677_112040_Linux-x86-64_1of7.zip
-http://192.168.8.100/oracle11g/p13390677_112040_Linux-x86-64_2of7.zip
+
+1. http://192.168.8.100/oracle11g/p13390677_112040_Linux-x86-64_1of7.zip
+2. http://192.168.8.100/oracle11g/p13390677_112040_Linux-x86-64_2of7.zip
 
 从docker hub或国内docker加速站点上下载oralcelinux:7的docker镜像,并重新打标签为:
 192.168.8.251/library/oraclelinux:7
 
-
 #### 安装教程
-1.build preinstall:./01preinstall/01build.sh
-
-2.build installed:./02installed/01build.sh
-
-3.build database:./03database/01build.sh
+1. build preinstall:./01preinstall/01build.sh
+2. build installed:./02installed/01build.sh
+3. build database:./03database/01build.sh
 
 #### 使用说明
 数据库信息
