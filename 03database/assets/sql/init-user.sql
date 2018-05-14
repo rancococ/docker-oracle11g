@@ -51,17 +51,24 @@ BEGIN
     END IF;
     -- create user
     SELECT COUNT(*) INTO V_CNT FROM DBA_USERS U WHERE U.USERNAME = V_USERNAME;
-    IF V_CNT > 0 THEN
+    IF V_CNT = 0 THEN
+        BEGIN
+            -- create user
+            V_SQLEXEC := 'CREATE USER ' || V_USERNAME || ' IDENTIFIED BY "' || V_PASSWORD || '" DEFAULT TABLESPACE ' || V_DATASPACE || ' TEMPORARY TABLESPACE ' || V_TEMPSPACE;
+            EXECUTE IMMEDIATE V_SQLEXEC;
+        END;
+    ELSE
         BEGIN
             -- drop user
-            V_SQLEXEC := 'DROP USER ' || V_USERNAME || ' CASCADE';
+            -- V_SQLEXEC := 'DROP USER ' || V_USERNAME || ' CASCADE';
+            -- create user
+            -- V_SQLEXEC := 'CREATE USER ' || V_USERNAME || ' IDENTIFIED BY "' || V_PASSWORD || '" DEFAULT TABLESPACE ' || V_DATASPACE || ' TEMPORARY TABLESPACE ' || V_TEMPSPACE;
+            -- EXECUTE IMMEDIATE V_SQLEXEC;
+            -- alter user
+            V_SQLEXEC := 'ALTER USER ' || V_USERNAME || ' IDENTIFIED BY "' || V_PASSWORD || '" DEFAULT TABLESPACE ' || V_DATASPACE || ' TEMPORARY TABLESPACE ' || V_TEMPSPACE;
             EXECUTE IMMEDIATE V_SQLEXEC;
         END;
     END IF;
-    BEGIN
-         V_SQLEXEC := 'CREATE USER ' || V_USERNAME || ' IDENTIFIED BY "' || V_PASSWORD || '" DEFAULT TABLESPACE ' || V_DATASPACE || ' TEMPORARY TABLESPACE ' || V_TEMPSPACE;
-         EXECUTE IMMEDIATE V_SQLEXEC;
-    END;
     -- grant permission for user
     BEGIN
         V_SQLEXEC := 'GRANT CONNECT, RESOURCE, EXP_FULL_DATABASE, IMP_FULL_DATABASE TO ' || V_USERNAME;
